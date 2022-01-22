@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  loopback:
+    build:
+      context: .
+    image: chatback2
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASS=1515
+      - MYSQL_DB=usuariosChatWeb
+    volumes:
+      - ./:/app
+    ports:
+      - '3000:3000'
+    container_name: loopback-app
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - /home/pc/dockerVolumes/chatloop:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1515
+      - MYSQL_DATABASE=usuariosChatWeb
