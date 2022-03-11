@@ -11,13 +11,13 @@ import {
 } from '../models';
 import {mensajesChatWebRepository} from '../repositories';
 
-@authenticate('jwt')
 export class mensajesChatWebusuariosChatWebController {
   constructor(
     @repository(mensajesChatWebRepository)
     public mensajesChatWebRepository: mensajesChatWebRepository,
   ) { }
 
+@authenticate('jwt')
   @get('/mensajes-chat-webs/{id}/usuarios-chat-web', {
     responses: {
       '200': {

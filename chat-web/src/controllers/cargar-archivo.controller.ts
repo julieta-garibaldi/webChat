@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {inject} from '@loopback/core';
 import {
   HttpErrors,
@@ -12,7 +11,6 @@ import multer from 'multer';
 import path from 'path';
 import {Keys as llaves} from '../config/keys';
 
-@authenticate('jwt')
 export class CargaArchivoController {
   constructor(
   ) { }

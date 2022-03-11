@@ -63,7 +63,12 @@ const InBoxChat = (props) => {
 
   const goToConversation = async (userO, userD) => {
     await axios
-      .get(baseUrl, { params: { user_origen: userO, user_destino: userD } })
+      .get(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+        params: { user_origen: userO, user_destino: userD },
+      })
       .then((response) => {
         props.setChat([]);
         props.setChat(response.data);
@@ -195,6 +200,7 @@ const mapStateToProps = (state) => ({
   username: state.userReducer.username,
   loggedIn: state.userReducer.loggedIn,
   user_destino: state.userReducer.user_destino,
+  token: state.userReducer.token,
 });
 
 const mapDispachToProps = (dispatch) => ({

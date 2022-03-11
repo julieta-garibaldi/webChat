@@ -49,7 +49,12 @@ const DashboardChat = (props) => {
 
   const showAllUser = () => {
     axios
-      .get(baseUrl, { params: { username: props.username } })
+      .get(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+        params: { username: props.username },
+      })
       .then((response) => {
         console.log(response.data);
         setUsers(response.data);
@@ -61,7 +66,12 @@ const DashboardChat = (props) => {
 
   const unReadMessage = async () => {
     await axios
-      .get(baseUrl7, { params: { user_destino: props.username } })
+      .get(baseUrl7, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+        params: { user_destino: props.username },
+      })
       .then((response) => {
         setUnRead(response.data[0]);
         console.log(response.data[0]);
@@ -74,6 +84,9 @@ const DashboardChat = (props) => {
   const changeReadMessage = async (userparam) => {
     await axios
       .get(baseUrl6, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
         params: { user_origen: props.username, user_destino: userparam },
       })
       .then((response) => {
@@ -88,6 +101,9 @@ const DashboardChat = (props) => {
   const showConversation = async (userparam) => {
     await axios
       .get(baseUrl2, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
         params: { user_origen: props.username, user_destino: userparam },
       })
       .then((response) => {
@@ -132,7 +148,10 @@ const DashboardChat = (props) => {
   const allChatFilter = async () => {
     await axios
       .get(baseUrl4, {
-        params: { user_origen: props.user },
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+        params: { user_origen: props.username },
       })
       .then((response) => {
         setAllChat([]);
@@ -241,6 +260,7 @@ const mapStateToProps = (state) => ({
   username: state.userReducer.username,
   loggedIn: state.userReducer.loggedIn,
   user_destino: state.userReducer.user_destino,
+  token: state.userReducer.token,
 });
 
 const mapDispachToProps = (dispatch) => ({

@@ -25,7 +25,6 @@ import {
 import {mensajesChatWeb} from '../models';
 import {mensajesChatWebRepository} from '../repositories';
 
-@authenticate('jwt')
 export class mensajesChatWebController {
   constructor(
     @repository(mensajesChatWebRepository)
@@ -53,6 +52,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.create(mensajesChatWeb);
   }
 
+@authenticate('jwt')
   @get('/mensajes-chat-webs/count')
   @response(200, {
     description: 'mensajesChatWeb model count',
@@ -64,6 +64,8 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.count(where);
   }
 
+
+@authenticate('jwt')
   @get('/mensajes-chat-webs')
   @response(200, {
     description: 'Array of mensajesChatWeb model instances',
@@ -101,6 +103,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.find(this.mensajesChatWebRepository.filterHistorial(user_origen, user_destino));
   }
 
+@authenticate('jwt')
   @get('/mensajes-chat-webs/historialalternativo')
   @response(200, {
     description: 'Array of mensajesChatWeb model instances',
@@ -119,6 +122,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.find(this.mensajesChatWebRepository.filterHistorialAlternativo(user_origen));
   }
 
+@authenticate('jwt')
   @get('/unread-mensajes-chat-webs')
   @response(200, {
     description: 'Array of mensajesChatWeb model instances',
@@ -137,6 +141,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.dataSource.execute('CALL newMessage(?)', [user_destino]);
   }
 
+  @authenticate('jwt')
   @get('/update-mensajes-chat-webs')
   @response(200, {
     description: 'Array of mensajesChatWeb model instances',
@@ -149,6 +154,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.dataSource.execute('CALL separateUsers(?)', [users]);
   }
 
+  @authenticate('jwt')
   @patch('/mensajes-chat-webs')
   @response(200, {
     description: 'mensajesChatWeb PATCH success count',
@@ -168,6 +174,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.updateAll(mensajesChatWeb, where);
   }
 
+  @authenticate('jwt')
   @get('/mensajes-chat-webs/{id}')
   @response(200, {
     description: 'mensajesChatWeb model instance',
@@ -184,6 +191,7 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.findById(id, filter);
   }
 
+  @authenticate('jwt')
   @patch('/mensajes-chat-webs/{id}')
   @response(204, {
     description: 'mensajesChatWeb PATCH success',
@@ -202,6 +210,7 @@ export class mensajesChatWebController {
     await this.mensajesChatWebRepository.updateById(id, mensajesChatWeb);
   }
 
+  @authenticate('jwt')
   @put('/mensajes-chat-webs/{id}')
   @response(204, {
     description: 'mensajesChatWeb PUT success',
@@ -213,6 +222,7 @@ export class mensajesChatWebController {
     await this.mensajesChatWebRepository.replaceById(id, mensajesChatWeb);
   }
 
+  @authenticate('jwt')
   @del('/mensajes-chat-webs/{id}')
   @response(204, {
     description: 'mensajesChatWeb DELETE success',

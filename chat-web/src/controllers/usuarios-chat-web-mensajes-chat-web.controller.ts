@@ -21,12 +21,12 @@ import {
 } from '../models';
 import {usuariosChatWebRepository} from '../repositories';
 
-@authenticate('jwt')
 export class usuariosChatWebmensajesChatWebController {
   constructor(
     @repository(usuariosChatWebRepository) protected usuariosChatWebRepository: usuariosChatWebRepository,
   ) { }
 
+  @authenticate('jwt')
   @get('/usuarios-chat-webs/{id}/mensajes-chat-webs', {
     responses: {
       '200': {
@@ -71,6 +71,7 @@ export class usuariosChatWebmensajesChatWebController {
     return this.usuariosChatWebRepository.mensajesChatWebs(id).create(mensajesChatWeb);
   }
 
+  @authenticate('jwt')
   @patch('/usuarios-chat-webs/{id}/mensajes-chat-webs', {
     responses: {
       '200': {
@@ -94,6 +95,7 @@ export class usuariosChatWebmensajesChatWebController {
     return this.usuariosChatWebRepository.mensajesChatWebs(id).patch(mensajesChatWeb, where);
   }
 
+  @authenticate('jwt')
   @del('/usuarios-chat-webs/{id}/mensajes-chat-webs', {
     responses: {
       '200': {
