@@ -4,7 +4,7 @@ import {mensajesChatWeb} from './mensajes-chat-web.model';
 @model()
 export class usuariosChatWeb extends Entity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })

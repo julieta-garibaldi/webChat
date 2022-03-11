@@ -60,7 +60,7 @@ export class mensajesChatWeb extends Entity {
   esTexto: boolean;
 
   @belongsTo(() => usuariosChatWeb)
-  usuariosChatWebId: number;
+  usuariosChatWebId: string;
 
   constructor(data?: Partial<mensajesChatWeb>) {
     super(data);

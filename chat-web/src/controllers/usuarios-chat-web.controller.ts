@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema, Filter, FilterExcludingWhere,
@@ -45,11 +46,12 @@ export class usuariosChatWebController {
         },
       },
     })
-    usuariosChatWeb: Omit<usuariosChatWeb, 'id_usuario'>,
+    usuariosChatWeb: Omit<usuariosChatWeb, 'id'>,
   ): Promise<usuariosChatWeb> {
     return this.usuariosChatWebRepository.create(usuariosChatWeb);
   }
 
+  @authenticate('jwt')
   @get('/usuarios-chat-webs/count')
   @response(200, {
     description: 'usuariosChatWeb model count',
@@ -61,6 +63,7 @@ export class usuariosChatWebController {
     return this.usuariosChatWebRepository.count(where);
   }
 
+  @authenticate('jwt')
   @get('/usuarios-chat-webs')
   @response(200, {
     description: 'Array of UsuariosChatWeb model instances',
@@ -98,6 +101,7 @@ export class usuariosChatWebController {
     return this.usuariosChatWebRepository.find(this.usuariosChatWebRepository.filterLogIn(user, password));
   }
 
+  @authenticate('jwt')
   @get('/usuarios-chat-webs/nouser')
   @response(200, {
     description: 'Array of usuariosChatWeb model instances',
@@ -116,7 +120,7 @@ export class usuariosChatWebController {
     return this.usuariosChatWebRepository.find(this.usuariosChatWebRepository.filterNoUser(username));
   }
 
-
+  @authenticate('jwt')
   @patch('/usuarios-chat-webs')
   @response(200, {
     description: 'usuariosChatWeb PATCH success count',
@@ -136,6 +140,7 @@ export class usuariosChatWebController {
     return this.usuariosChatWebRepository.updateAll(usuariosChatWeb, where);
   }
 
+  @authenticate('jwt')
   @get('/usuarios-chat-webs/{id}')
   @response(200, {
     description: 'usuariosChatWeb model instance',
@@ -152,6 +157,7 @@ export class usuariosChatWebController {
     return this.usuariosChatWebRepository.findById(id, filter);
   }
 
+  @authenticate('jwt')
   @patch('/usuarios-chat-webs/{id}')
   @response(204, {
     description: 'usuariosChatWeb PATCH success',
@@ -170,6 +176,7 @@ export class usuariosChatWebController {
     await this.usuariosChatWebRepository.updateById(id, usuariosChatWeb);
   }
 
+  @authenticate('jwt')
   @put('/usuarios-chat-webs/{id}')
   @response(204, {
     description: 'usuariosChatWeb PUT success',
@@ -181,6 +188,7 @@ export class usuariosChatWebController {
     await this.usuariosChatWebRepository.replaceById(id, usuariosChatWeb);
   }
 
+  @authenticate('jwt')
   @del('/usuarios-chat-webs/{id}')
   @response(204, {
     description: 'usuariosChatWeb DELETE success',

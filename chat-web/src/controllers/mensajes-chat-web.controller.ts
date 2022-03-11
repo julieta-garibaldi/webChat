@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -24,6 +25,7 @@ import {
 import {mensajesChatWeb} from '../models';
 import {mensajesChatWebRepository} from '../repositories';
 
+@authenticate('jwt')
 export class mensajesChatWebController {
   constructor(
     @repository(mensajesChatWebRepository)
@@ -117,6 +119,35 @@ export class mensajesChatWebController {
     return this.mensajesChatWebRepository.find(this.mensajesChatWebRepository.filterHistorialAlternativo(user_origen));
   }
 
+  @get('/unread-mensajes-chat-webs')
+  @response(200, {
+    description: 'Array of mensajesChatWeb model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(mensajesChatWeb, {includeRelations: false}),
+        },
+      },
+    },
+  })
+  async unread(
+    @param.query.string('user_destino') user_destino: string,
+  ): Promise<mensajesChatWeb[]> {
+    return this.mensajesChatWebRepository.dataSource.execute('CALL newMessage(?)', [user_destino]);
+  }
+
+  @get('/update-mensajes-chat-webs')
+  @response(200, {
+    description: 'Array of mensajesChatWeb model instances',
+  })
+  async update(
+    @param.query.string('user_origen') user_origen: string,
+    @param.query.string('user_destino') user_destino: string,
+  ): Promise<any> {
+    const users = user_origen +"&&&"+user_destino;
+    return this.mensajesChatWebRepository.dataSource.execute('CALL separateUsers(?)', [users]);
+  }
 
   @patch('/mensajes-chat-webs')
   @response(200, {
